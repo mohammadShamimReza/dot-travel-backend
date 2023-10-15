@@ -13,26 +13,36 @@ datasource db {
 
 model User {
   id String @id @default(uuid())
-  name String
+  firstName String
+  lastName String
   email String @unique
   password String
-  // role UserEnum
+  phone String @unique
+  role UserEnum
   contactNo String
+  district String
+  division String
+  village String
   address String
   profileImg String
-  reviewAndRatings ReviewAndRating[]
+  reviewAndRatings PackageReviewAndRating[]
+  BookedPackage BookedPackage[]
+  bookedSoloRoom BookedSoloRoom[]
+  soloReviewAndRating SoloReviewAndRating[]
+
   
 
   @@map("user")
 }
 
-// enum UserEnum {
-//   super_admin
-//   admin
-//   customer 
-// }
+enum UserEnum {
+  super_admin
+  admin
+  customer 
+  host
+}
 
-model Category {
+model PackageCategory {
   id String @id @default(uuid())
   title String
   books Package[]
@@ -43,20 +53,72 @@ model Category {
 model Package {
   id String @id @default(uuid())
   title String
-  author String
+  descripton String
   price Float
-  genre String
-  publicationDate String 
-  categoryId String
-  category Category @relation(fields: [categoryId], references: [id])
-  reviewAndRatings ReviewAndRating[]
-  // orderedBooks OrderedBook[]
+  from DateTime
+  to DateTime
+  status PackageStatusEnum
+  image Json[]
+  maxUser Int
+  packageCategoryId String
+  category PackageCategory @relation(fields: [packageCategoryId], references: [id])
+  packageReviewAndRating PackageReviewAndRating[]
+  bookedPackage BookedPackage[]
 
 
-  @@map("book")
+  @@map("package")
 }
 
-model ReviewAndRating {
+model BookedPackage {
+  id String @id @default(uuid())
+  Form DateTime
+  to DateTime
+  
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  soloRoomId String
+  package Package @relation(fields: [soloRoomId], references:[id])
+}
+
+model SoloRoom {
+  id String @id @default(uuid())
+  title String
+  descripton String
+  price Float
+  numberOfRooms Int
+  image Json[]
+  district String
+  division String
+  village String
+  address String
+  roadNumber String?
+  status SoloRoomEnum
+  BookedSoloRoom BookedSoloRoom[]
+  soloReviewAndRating SoloReviewAndRating[]
+
+
+  @@map("soloRoom")
+}
+
+model BookedSoloRoom {
+  id String @id @default(uuid())
+  Form DateTime
+  to DateTime
+  
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  soloRoomId String
+  soloRoom SoloRoom @relation(fields: [soloRoomId], references:[id])
+
+}
+
+enum SoloRoomEnum {
+  available
+  unavailable
+}
+
+
+model PackageReviewAndRating {
   id String @id @default(uuid())
   review String
   rating String
@@ -66,11 +128,24 @@ model ReviewAndRating {
   package Package @relation(fields: [packageId], references: [id])
 
 
-  @@map("reviewAndRating")
+  @@map("packageReviewAndRating")
 }
 
-enum OrderStatusEnum {
-  inpregress
+model SoloReviewAndRating {
+  id String @id @default(uuid())
+  review String
+  rating String
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  soloRoomId String
+  soloRoom SoloRoom @relation(fields: [soloRoomId], references: [id])
+
+
+  @@map("soloReviewAndRating")
+}
+
+enum PackageStatusEnum {
+  inprogress
   ongoing
   ended
   
