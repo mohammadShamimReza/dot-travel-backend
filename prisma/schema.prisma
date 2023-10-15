@@ -45,7 +45,7 @@ enum UserEnum {
 model PackageCategory {
   id String @id @default(uuid())
   title String
-  books Package[]
+  Package Package[]
 
   @@map("category")
 }
@@ -58,7 +58,7 @@ model Package {
   from DateTime
   to DateTime
   status PackageStatusEnum
-  image Json[]
+  packageImage String?
   maxUser Int
   packageCategoryId String
   category PackageCategory @relation(fields: [packageCategoryId], references: [id])
@@ -78,6 +78,8 @@ model BookedPackage {
   user User @relation(fields: [userId], references: [id])
   soloRoomId String
   package Package @relation(fields: [soloRoomId], references:[id])
+
+  @@map("bookedPackage")
 }
 
 model SoloRoom {
@@ -86,7 +88,7 @@ model SoloRoom {
   descripton String
   price Float
   numberOfRooms Int
-  image Json[]
+  roomImage String?
   district String
   division String
   village String
@@ -110,6 +112,7 @@ model BookedSoloRoom {
   soloRoomId String
   soloRoom SoloRoom @relation(fields: [soloRoomId], references:[id])
 
+@@map("bookedSoloRoom")
 }
 
 enum SoloRoomEnum {

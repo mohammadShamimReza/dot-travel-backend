@@ -1,80 +1,82 @@
-import { PackageCategory } from '@prisma/client';
+import { PackageReviewAndRating } from '@prisma/client';
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
-import { PackageCategoryService } from './PackageCategory.service';
+import { PackageReviewRatingService } from './PackageReviewRating.service';
 
-const createPackageCategory = catchAsync(
+const createPackageReviewRating = catchAsync(
   async (req: Request, res: Response) => {
     const payload = req.body;
 
-    const result = await PackageCategoryService.createPackageCategory(payload);
+    const result =
+      await PackageReviewRatingService.createPackageReviewRating(payload);
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Package Category created successfully',
+      message: 'User created successfully',
       data: result,
     });
   },
 );
 
 const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
-  const result = await PackageCategoryService.getAllFromDb();
+  const result = await PackageReviewRatingService.getAllFromDb();
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Package Category fetched successfully',
+    message: 'User fetched successfully',
     data: result,
   });
 });
 
 const getById = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  const result = await PackageCategoryService.getById(id);
+  const result = await PackageReviewRatingService.getById(id);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Package Category fetched successfully',
+    message: 'User fetched successfully',
     data: result,
   });
 });
 
-const updatePackageCategory = catchAsync(
+const updatePackageReviewRating = catchAsync(
   async (req: Request, res: Response) => {
     const id = req.params.id;
     const payload = req.body;
-    const result = await PackageCategoryService.updatePackageCategory(
+    const result = await PackageReviewRatingService.updatePackageReviewRating(
       id,
       payload,
     );
 
-    sendResponse<PackageCategory>(res, {
+    sendResponse<PackageReviewAndRating>(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Package Category update successfully',
+      message: 'User update successfully',
       data: result,
     });
   },
 );
-const deletePackageCategory = catchAsync(
+const deletePackageReviewRating = catchAsync(
   async (req: Request, res: Response) => {
     const id = req.params.id;
-    const result = await PackageCategoryService.deletePackageCategory(id);
+    const result =
+      await PackageReviewRatingService.deletePackageReviewRating(id);
 
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'Package Category delete successfully',
+      message: 'User delete successfully',
       data: result,
     });
   },
 );
 
-export const PackageCategoryController = {
-  createPackageCategory,
+export const PackageReviewRatingController = {
+  createPackageReviewRating,
   getAllFromDB,
   getById,
-  updatePackageCategory,
-  deletePackageCategory,
+  updatePackageReviewRating,
+  deletePackageReviewRating,
 };

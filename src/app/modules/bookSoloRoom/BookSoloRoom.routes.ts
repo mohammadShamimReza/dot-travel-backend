@@ -2,39 +2,39 @@ import express from 'express';
 import { ENUM_USER_ROLE } from '../../../enums/user';
 import auth from '../../middleware/auth';
 import validateRequest from '../../middleware/validateRequest';
-import { packageValidation } from './Package.validation';
-import { PackageController } from './package.controller';
+import { BookSoloRoomController } from './BookSoloRoom.controller';
+import { bookedSoloRoomValidation } from './BookSoloRoom.validation';
 
 const router = express.Router();
 
 router.get(
   '/:id',
   // auth(ENUM_USER_ROLE.ADMIN),
-  PackageController.getById,
+  BookSoloRoomController.getById,
 );
 
 router.get(
   '/',
   // auth(ENUM_USER_ROLE.ADMIN),
-  PackageController.getAllFromDB,
+  BookSoloRoomController.getAllFromDB,
 );
 router.post(
   '/',
   // auth(ENUM_USER_ROLE.ADMIN),
-  validateRequest(packageValidation.createPackage),
-  PackageController.createPackage,
+  validateRequest(bookedSoloRoomValidation.createBookedSoloRoom),
+  BookSoloRoomController.createBookSoloRoom,
 );
 
 router.patch(
   '/:id',
   // auth(ENUM_USER_ROLE.ADMIN),
-  validateRequest(packageValidation.updatePackage),
-  PackageController.updatePackage,
+  validateRequest(bookedSoloRoomValidation.updateBookedSoloRoom),
+  BookSoloRoomController.updateBookSoloRoom,
 );
 router.delete(
   '/:id',
   auth(ENUM_USER_ROLE.ADMIN),
-  PackageController.deletePackage,
+  BookSoloRoomController.deleteBookSoloRoom,
 );
 
 export const packageRoutes = router;

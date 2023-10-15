@@ -2,39 +2,39 @@ import express from 'express';
 import { ENUM_USER_ROLE } from '../../../enums/user';
 import auth from '../../middleware/auth';
 import validateRequest from '../../middleware/validateRequest';
-import { PackageController } from './PackageCategory.controller';
-import { packageValidation } from './PackageCategory.validation';
+import { PackageCategoryController } from './PackageCategory.controller';
+import { packageCategoryValidation } from './PackageCategory.validation';
 
 const router = express.Router();
 
 router.get(
   '/:id',
   // auth(ENUM_USER_ROLE.ADMIN),
-  PackageController.createPackage,
+  PackageCategoryController.getById,
 );
 
 router.get(
   '/',
   // auth(ENUM_USER_ROLE.ADMIN),
-  PackageController.getAllFromDB,
+  PackageCategoryController.getAllFromDB,
 );
 router.post(
   '/',
   // auth(ENUM_USER_ROLE.ADMIN),
-  validateRequest(packageValidation.createPackage),
-  PackageController.createPackage,
+  validateRequest(packageCategoryValidation.createPackageCategory),
+  PackageCategoryController.createPackageCategory,
 );
 
 router.patch(
   '/:id',
   // auth(ENUM_USER_ROLE.ADMIN),
-  validateRequest(packageValidation.updatePackage),
-  PackageController.updatePackage,
+  validateRequest(packageCategoryValidation.updatePackageCategory),
+  PackageCategoryController.updatePackageCategory,
 );
 router.delete(
   '/:id',
   auth(ENUM_USER_ROLE.ADMIN),
-  PackageController.deletePackage,
+  PackageCategoryController.deletePackageCategory,
 );
 
-export const packageRoutes = router;
+export const packageCategoryRoutes = router;

@@ -1,17 +1,19 @@
-import { User } from '@prisma/client';
+import { PackageCategory } from '@prisma/client';
 import prisma from '../../../shared/prisma';
 
-const createPackage = async (payload: User): Promise<User> => {
-  const result = await prisma.user.create({ data: payload });
+const createPackageCategory = async (
+  payload: PackageCategory,
+): Promise<PackageCategory> => {
+  const result = await prisma.packageCategory.create({ data: payload });
   return result;
 };
 
-const getAllFromDb = async (): Promise<User[]> => {
-  const result = await prisma.user.findMany({});
+const getAllFromDb = async (): Promise<PackageCategory[]> => {
+  const result = await prisma.packageCategory.findMany({});
   return result;
 };
-const getById = async (id: string): Promise<User | null> => {
-  const result = await prisma.user.findUnique({
+const getById = async (id: string): Promise<PackageCategory | null> => {
+  const result = await prisma.packageCategory.findUnique({
     where: {
       id,
     },
@@ -19,11 +21,11 @@ const getById = async (id: string): Promise<User | null> => {
   return result;
 };
 
-const updatePackage = async (
+const updatePackageCategory = async (
   id: string,
-  payload: Partial<User>,
-): Promise<User> => {
-  const result = await prisma.user.update({
+  payload: Partial<PackageCategory>,
+): Promise<PackageCategory> => {
+  const result = await prisma.packageCategory.update({
     where: {
       id,
     },
@@ -32,8 +34,8 @@ const updatePackage = async (
   return result;
 };
 
-const deletePackage = async (id: string): Promise<User> => {
-  const result = await prisma.user.delete({
+const deletePackageCategory = async (id: string): Promise<PackageCategory> => {
+  const result = await prisma.packageCategory.delete({
     where: {
       id,
     },
@@ -44,10 +46,10 @@ const deletePackage = async (id: string): Promise<User> => {
   return result;
 };
 
-export const PackageService = {
-  createPackage,
+export const PackageCategoryService = {
+  createPackageCategory,
   getAllFromDb,
   getById,
-  updatePackage,
-  deletePackage,
+  updatePackageCategory,
+  deletePackageCategory,
 };
