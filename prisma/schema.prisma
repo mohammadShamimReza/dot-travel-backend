@@ -38,7 +38,7 @@ model User {
 enum UserEnum {
   super_admin
   admin
-  customer 
+  client 
   host
 }
 

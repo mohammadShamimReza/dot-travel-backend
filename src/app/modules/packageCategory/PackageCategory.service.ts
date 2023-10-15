@@ -1,8 +1,7 @@
 import { User } from '@prisma/client';
 import prisma from '../../../shared/prisma';
 
-
-const createUser = async (payload: User): Promise<User> => {
+const createPackage = async (payload: User): Promise<User> => {
   const result = await prisma.user.create({ data: payload });
   return result;
 };
@@ -20,7 +19,7 @@ const getById = async (id: string): Promise<User | null> => {
   return result;
 };
 
-const updateUser = async (
+const updatePackage = async (
   id: string,
   payload: Partial<User>,
 ): Promise<User> => {
@@ -33,7 +32,7 @@ const updateUser = async (
   return result;
 };
 
-const deleteUser = async (id: string): Promise<User> => {
+const deletePackage = async (id: string): Promise<User> => {
   const result = await prisma.user.delete({
     where: {
       id,
@@ -45,10 +44,10 @@ const deleteUser = async (id: string): Promise<User> => {
   return result;
 };
 
-export const UserService = {
-  createUser,
+export const PackageService = {
+  createPackage,
   getAllFromDb,
   getById,
-  updateUser,
-  deleteUser,
+  updatePackage,
+  deletePackage,
 };

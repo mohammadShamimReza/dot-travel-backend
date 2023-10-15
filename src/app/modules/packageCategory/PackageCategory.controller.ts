@@ -3,13 +3,12 @@ import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
-import { UserService } from './User.service';
+import { PackageService } from './PackageCategory.service';
 
-
-const createUser = catchAsync(async (req: Request, res: Response) => {
+const createPackage = catchAsync(async (req: Request, res: Response) => {
   const payload = req.body;
 
-  const result = await UserService.createUser(payload);
+  const result = await PackageService.createPackage(payload);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -19,7 +18,7 @@ const createUser = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
-  const result = await UserService.getAllFromDb();
+  const result = await PackageService.getAllFromDb();
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -30,7 +29,7 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
 
 const getById = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  const result = await UserService.getById(id);
+  const result = await PackageService.getById(id);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -39,10 +38,10 @@ const getById = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const updateUser = catchAsync(async (req: Request, res: Response) => {
+const updatePackage = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
   const payload = req.body;
-  const result = await UserService.updateUser(id, payload);
+  const result = await PackageService.updatePackage(id, payload);
 
   sendResponse<User>(res, {
     statusCode: httpStatus.OK,
@@ -51,9 +50,9 @@ const updateUser = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
-const deleteUser = catchAsync(async (req: Request, res: Response) => {
+const deletePackage = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
-  const result = await UserService.deleteUser(id);
+  const result = await PackageService.deletePackage(id);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -63,10 +62,10 @@ const deleteUser = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-export const UserController = {
-  createUser,
+export const PackageController = {
+  createPackage,
   getAllFromDB,
   getById,
-  updateUser,
-  deleteUser,
+  updatePackage,
+  deletePackage,
 };
