@@ -28,7 +28,7 @@ const logIn = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     success: true,
     statusCode: 200,
-    message: 'Admin logged in successfully',
+    message: 'User logged in successfully',
     data: {
       accessToken: accessToken,
     },

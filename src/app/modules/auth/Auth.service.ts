@@ -39,13 +39,15 @@ const logIn = async (LoginData: { email: string; password: string }) => {
     throw new ApiError(httpStatus.NOT_FOUND, 'password not matched');
   }
 
+  console.log(isUserExist);
+
   const accessToken = jwtHelpers.createToken(
-    { email, password, role, id },
+    { email, role, id },
     config.jwt.secret as Secret,
     config.jwt.expires_in as string,
   );
   const refreshToken = jwtHelpers.createToken(
-    { email, password },
+    { email, password, id },
     config.jwt.refresh_secret as Secret,
     config.jwt.refresh_expires_in as string,
   );
