@@ -1,8 +1,11 @@
 import { User } from '@prisma/client';
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
+import { paginationFields } from '../../../constants/pagination';
 import catchAsync from '../../../shared/catchAsync';
+import pick from '../../../shared/pick';
 import sendResponse from '../../../shared/sendResponse';
+import { userFilterableFields } from './User.constants';
 import { UserService } from './User.service';
 
 
@@ -19,7 +22,10 @@ const createUser = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
-  const result = await UserService.getAllFromDb();
+    const filters = pick(req.query, userFilterableFields);
+    const paginationOptions = pick(req.query, paginationFields);
+
+    const result = await UserService.getAllFromDb(filters, paginationOptions);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
