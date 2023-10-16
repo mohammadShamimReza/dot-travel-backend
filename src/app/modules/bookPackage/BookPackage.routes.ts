@@ -2,39 +2,39 @@ import express from 'express';
 import { ENUM_USER_ROLE } from '../../../enums/user';
 import auth from '../../middleware/auth';
 import validateRequest from '../../middleware/validateRequest';
-import { packageValidation } from './Package.validation';
-import { PackageController } from './package.controller';
+import { BookPackageController } from './BookPackage.controller';
+import { bookedPackageValidation } from './BookPackage.validation';
 
 const router = express.Router();
 
 router.get(
   '/:id',
   // auth(ENUM_USER_ROLE.ADMIN),
-  PackageController.getById,
+  BookPackageController.getById,
 );
 
 router.get(
   '/',
   // auth(ENUM_USER_ROLE.ADMIN),
-  PackageController.getAllFromDB,
+  BookPackageController.getAllFromDB,
 );
 router.post(
   '/',
   // auth(ENUM_USER_ROLE.ADMIN),
-  validateRequest(packageValidation.createPackage),
-  PackageController.createPackage,
+  validateRequest(bookedPackageValidation.createBookedPackage),
+  BookPackageController.createBookPackage,
 );
 
 router.patch(
   '/:id',
   // auth(ENUM_USER_ROLE.ADMIN),
-  validateRequest(packageValidation.updatePackage),
-  PackageController.updatePackage,
+  validateRequest(bookedPackageValidation.updateBookedPackage),
+  BookPackageController.updateBookPackage,
 );
 router.delete(
   '/:id',
   auth(ENUM_USER_ROLE.ADMIN),
-  PackageController.deletePackage,
+  BookPackageController.deleteBookPackage,
 );
 
-export const packageRoutes = router;
+export const BookdPackageRoutes = router;

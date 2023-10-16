@@ -37,4 +37,4 @@ router.delete(
   SoloReviewAndRatingController.deleteReviewAndRating,
 );
 
-export const packageRoutes = router;
+export const SoloReviewRoutes = router;

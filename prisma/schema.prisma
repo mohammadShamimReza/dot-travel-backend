@@ -53,7 +53,7 @@ model PackageCategory {
 model Package {
   id String @id @default(uuid())
   title String
-  descripton String
+  description String
   price Float
   from DateTime
   to DateTime
@@ -71,13 +71,12 @@ model Package {
 
 model BookedPackage {
   id String @id @default(uuid())
-  Form DateTime
-  to DateTime
+
   
   userId String
   user User @relation(fields: [userId], references: [id])
-  soloRoomId String
-  package Package @relation(fields: [soloRoomId], references:[id])
+  packageId String
+  package Package @relation(fields: [packageId], references:[id])
 
   @@map("bookedPackage")
 }
@@ -85,7 +84,7 @@ model BookedPackage {
 model SoloRoom {
   id String @id @default(uuid())
   title String
-  descripton String
+  description String
   price Float
   numberOfRooms Int
   roomImage String?

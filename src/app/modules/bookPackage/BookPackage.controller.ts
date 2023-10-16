@@ -1,14 +1,14 @@
-import { User } from '@prisma/client';
+import { BookedPackage } from '@prisma/client';
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
-import { PackageService } from './Package.service';
+import { BookPackageService } from './BookPackage.service';
 
-const createPackage = catchAsync(async (req: Request, res: Response) => {
+const createBookPackage = catchAsync(async (req: Request, res: Response) => {
   const payload = req.body;
 
-  const result = await PackageService.createPackage(payload);
+  const result = await BookPackageService.createBookPackage(payload);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -18,7 +18,7 @@ const createPackage = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
-  const result = await PackageService.getAllFromDb();
+  const result = await BookPackageService.getAllFromDb();
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -29,7 +29,7 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
 
 const getById = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  const result = await PackageService.getById(id);
+  const result = await BookPackageService.getById(id);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -38,21 +38,21 @@ const getById = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const updatePackage = catchAsync(async (req: Request, res: Response) => {
+const updateBookPackage = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
   const payload = req.body;
-  const result = await PackageService.updatePackage(id, payload);
+  const result = await BookPackageService.updateBookPackage(id, payload);
 
-  sendResponse<User>(res, {
+  sendResponse<BookedPackage>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'User update successfully',
     data: result,
   });
 });
-const deletePackage = catchAsync(async (req: Request, res: Response) => {
+const deleteBookPackage = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
-  const result = await PackageService.deletePackage(id);
+  const result = await BookPackageService.deleteBookPackage(id);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -62,10 +62,10 @@ const deletePackage = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-export const PackageController = {
-  createPackage,
+export const BookPackageController = {
+  createBookPackage,
   getAllFromDB,
   getById,
-  updatePackage,
-  deletePackage,
+  updateBookPackage,
+  deleteBookPackage,
 };

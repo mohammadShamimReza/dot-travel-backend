@@ -41,4 +41,4 @@ router.delete(
   PackageReviewRatingController.deletePackageReviewRating,
 );
 
-export const packageRoutes = router;
+export const PackageReviewRoutes = router;

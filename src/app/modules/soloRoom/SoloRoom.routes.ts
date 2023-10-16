@@ -36,4 +36,4 @@ router.delete(
   SoloRoomController.deletePackage,
 );
 
-export const packageRoutes = router;
+export const SoloRoomRoutes = router;

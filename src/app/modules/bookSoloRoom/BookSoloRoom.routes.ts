@@ -37,4 +37,4 @@ router.delete(
   BookSoloRoomController.deleteBookSoloRoom,
 );
 
-export const packageRoutes = router;
+export const BookSoloRoomRoutes = router;
