@@ -19,12 +19,9 @@ model User {
   password String
   phone String @unique
   role UserEnum
-  contactNo String
-  district String
-  division String
-  village String
+
   address String
-  profileImg String
+  profileImg String?
   reviewAndRatings PackageReviewAndRating[]
   BookedPackage BookedPackage[]
   bookedSoloRoom BookedSoloRoom[]
@@ -61,6 +58,7 @@ model Package {
   status PackageStatusEnum
   packageImage String?
   maxUser Int
+  destination String
   packageCategoryId String
   category PackageCategory @relation(fields: [packageCategoryId], references: [id])
   packageReviewAndRating PackageReviewAndRating[]

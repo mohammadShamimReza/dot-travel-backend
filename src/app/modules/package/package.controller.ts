@@ -1,4 +1,4 @@
-import { User } from '@prisma/client';
+import { Package } from '@prisma/client';
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import catchAsync from '../../../shared/catchAsync';
@@ -7,7 +7,7 @@ import { PackageService } from './Package.service';
 
 const createPackage = catchAsync(async (req: Request, res: Response) => {
   const payload = req.body;
-
+  console.log(payload, 'from package');
   const result = await PackageService.createPackage(payload);
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -43,7 +43,7 @@ const updatePackage = catchAsync(async (req: Request, res: Response) => {
   const payload = req.body;
   const result = await PackageService.updatePackage(id, payload);
 
-  sendResponse<User>(res, {
+  sendResponse<Package>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'User update successfully',

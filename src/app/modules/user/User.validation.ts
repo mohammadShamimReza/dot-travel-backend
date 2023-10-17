@@ -8,12 +8,11 @@ const create = z.object({
     password: z.string({ required_error: 'firstName is required' }),
     phone: z.string({ required_error: 'firstName is required' }),
     role: z.string({ required_error: 'firstName is required' }),
-    contactNo: z.string({ required_error: 'firstName is required' }),
-    district: z.string({ required_error: 'firstName is required' }),
-    division: z.string({ required_error: 'firstName is required' }),
-    village: z.string({ required_error: 'firstName is required' }),
+
     address: z.string({ required_error: 'firstName is required' }),
-    profileImg: z.string({ required_error: 'firstName is required' }),
+    profileImg: z
+      .string({ required_error: 'firstName is required' })
+      .optional(),
   }),
 });
 
@@ -26,9 +25,6 @@ const update = z.object({
     phone: z.string().optional(),
     role: z.string().optional(),
     contactNo: z.string().optional(),
-    district: z.string().optional(),
-    division: z.string().optional(),
-    village: z.string().optional(),
     address: z.string().optional(),
     profileImg: z.string().optional(),
   }),

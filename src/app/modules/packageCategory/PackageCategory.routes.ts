@@ -1,6 +1,4 @@
 import express from 'express';
-import { ENUM_USER_ROLE } from '../../../enums/user';
-import auth from '../../middleware/auth';
 import validateRequest from '../../middleware/validateRequest';
 import { PackageCategoryController } from './PackageCategory.controller';
 import { packageCategoryValidation } from './PackageCategory.validation';
@@ -28,12 +26,12 @@ router.post(
 router.patch(
   '/:id',
   // auth(ENUM_USER_ROLE.ADMIN),
-  validateRequest(packageCategoryValidation.updatePackageCategory),
+  // validateRequest(packageCategoryValidation.updatePackageCategory),
   PackageCategoryController.updatePackageCategory,
 );
 router.delete(
   '/:id',
-  auth(ENUM_USER_ROLE.ADMIN),
+  // auth(ENUM_USER_ROLE.ADMIN),
   PackageCategoryController.deletePackageCategory,
 );
 

@@ -8,7 +8,7 @@ import { PackageCategoryService } from './PackageCategory.service';
 const createPackageCategory = catchAsync(
   async (req: Request, res: Response) => {
     const payload = req.body;
-
+    console.log(payload);
     const result = await PackageCategoryService.createPackageCategory(payload);
     sendResponse(res, {
       statusCode: httpStatus.OK,

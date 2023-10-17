@@ -8,9 +8,10 @@ const createPackage = z.object({
     from: z.string({ required_error: 'Title  is required' }),
     to: z.string({ required_error: 'Title  is required' }),
     status: z.enum(['inprogress', 'ongoing', 'ended']),
-    image: z.array(z.string()).optional(),
+    packageImage: z.string().optional(),
     maxUser: z.number({ required_error: 'Title  is required' }),
     packageCategoryId: z.string({ required_error: 'Title  is required' }),
+    destination: z.string({ required_error: 'destination is required' }),
   }),
 });
 
@@ -23,7 +24,8 @@ const updatePackage = z.object({
     from: z.date().optional(),
     to: z.date().optional(),
     status: z.enum(['inprogress', 'ongoing', 'ended']).optional(), // Replace with actual status values
-    image: z.array(z.string()).optional(), // Assuming image is an array of strings (URLs)
+    packageImage: z.string().optional(), // Assuming image is an array of strings (URLs)
+    destination: z.string().optional(),
   }),
 });
 

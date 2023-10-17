@@ -37,9 +37,6 @@ const deletePackage = async (id: string): Promise<Package> => {
     where: {
       id,
     },
-    include: {
-      _count: true,
-    },
   });
   return result;
 };

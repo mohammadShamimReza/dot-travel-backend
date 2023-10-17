@@ -7,9 +7,8 @@ export const userFilterableFields = [
   'phone',
   'role',
   'contactNo',
-  'district',
-  'division',
-  'village',
+
+  'address',
 ];
 
 export const userSearchableFields = [
@@ -19,9 +18,8 @@ export const userSearchableFields = [
   'phone',
   'role',
   'contactNo',
-  'district',
-  'division',
-  'village',
+
+  'address',
 ];
 
 export const userRelationalFields: string[] = [''];
