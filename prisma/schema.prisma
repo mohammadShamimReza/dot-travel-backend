@@ -21,11 +21,11 @@ model User {
   role UserEnum
 
   address String
-  profileImg String?
   reviewAndRatings PackageReviewAndRating[]
   BookedPackage BookedPackage[]
   bookedSoloRoom BookedSoloRoom[]
   soloReviewAndRating SoloReviewAndRating[]
+  addToCartPackage AddToCartPackage[]
 
   
 
@@ -40,29 +40,21 @@ enum UserEnum {
   
 }
 
-model PackageCategory {
-  id String @id @default(uuid())
-  title String
-  Package Package[]
-
-  @@map("category")
-}
 
 model Package {
   id String @id @default(uuid())
   title String
   description String
-  price Float
-  from DateTime
-  to DateTime
-  status PackageStatusEnum
-  packageImage String?
+  price Int
+  from String
+  to String
   maxUser Int
+  packageImage String?
   destination String
-  packageCategoryId String
-  category PackageCategory @relation(fields: [packageCategoryId], references: [id])
+
   packageReviewAndRating PackageReviewAndRating[]
   bookedPackage BookedPackage[]
+  addToCartPackage AddToCartPackage[]
 
 
   @@map("package")
@@ -102,8 +94,8 @@ model SoloRoom {
 
 model BookedSoloRoom {
   id String @id @default(uuid())
-  Form DateTime
-  to DateTime
+  Form String
+  to String
   
   userId String
   user User @relation(fields: [userId], references: [id])
@@ -145,9 +137,30 @@ model SoloReviewAndRating {
   @@map("soloReviewAndRating")
 }
 
-enum PackageStatusEnum {
-  inprogress
-  ongoing
-  ended
-  
+
+model Faq {
+   id String @id @default(uuid())
+  title String
+  description String
+
+  @@map("faq")
+}
+
+model Blog {
+   id String @id @default(uuid())
+  title String
+  description String
+
+  @@map("blog")
+}
+
+
+model AddToCartPackage {
+  id String @id @default(uuid())
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  packageId String
+  package Package @relation(fields: [packageId], references: [id])
+
+  @@map("addToCartPackage")
 }

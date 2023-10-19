@@ -2,12 +2,16 @@ import { Package } from '@prisma/client';
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import catchAsync from '../../../shared/catchAsync';
+import pick from '../../../shared/pick';
 import sendResponse from '../../../shared/sendResponse';
 import { PackageService } from './Package.service';
+import {
+  packageFilterableFields,
+  packageSearchableFields,
+} from './package.constant';
 
 const createPackage = catchAsync(async (req: Request, res: Response) => {
   const payload = req.body;
-  console.log(payload, 'from package');
   const result = await PackageService.createPackage(payload);
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -18,7 +22,9 @@ const createPackage = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
-  const result = await PackageService.getAllFromDb();
+  const filters = pick(req.query, packageFilterableFields);
+  const paginationOptions = pick(req.query, packageSearchableFields);
+  const result = await PackageService.getAllFromDb(filters, paginationOptions);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -29,6 +35,7 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
 
 const getById = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
+
   const result = await PackageService.getById(id);
   sendResponse(res, {
     statusCode: httpStatus.OK,

@@ -10,9 +10,6 @@ const create = z.object({
     role: z.string({ required_error: 'firstName is required' }),
 
     address: z.string({ required_error: 'firstName is required' }),
-    profileImg: z
-      .string({ required_error: 'firstName is required' })
-      .optional(),
   }),
 });
 
@@ -26,7 +23,7 @@ const update = z.object({
     role: z.string().optional(),
     contactNo: z.string().optional(),
     address: z.string().optional(),
-    profileImg: z.string().optional(),
+
   }),
 });
 

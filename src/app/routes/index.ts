@@ -1,10 +1,12 @@
 import express from 'express';
 import { authRoutes } from '../modules/auth/Auth.routes';
 
+import { AddToCartPackageRoutes } from '../modules/addToCartPackage/AddToCartPackage.routes';
+import { BlogRoutes } from '../modules/blog/Blog.routes';
 import { BookdPackageRoutes } from '../modules/bookPackage/BookPackage.routes';
 import { BookSoloRoomRoutes } from '../modules/bookSoloRoom/BookSoloRoom.routes';
+import { FaqRoutes } from '../modules/faq/Faq.routes';
 import { packageRoutes } from '../modules/package/Package.routes';
-import { packageCategoryRoutes } from '../modules/packageCategory/PackageCategory.routes';
 import { PackageReviewRoutes } from '../modules/packageReviewRating/PackageReviewRating.routes';
 import { profileRoutes } from '../modules/profile/Profile.routes';
 import { SoloReviewRoutes } from '../modules/soloReviewRating/SoloReviewRating.routes';
@@ -30,12 +32,9 @@ const moduleRoutes = [
     path: '/packages',
     routes: packageRoutes,
   },
+
   {
-    path: '/packages-category',
-    routes: packageCategoryRoutes,
-  },
-  {
-    path: '/booked-packages',
+    path: '/booked_packages',
     routes: BookdPackageRoutes,
   },
   {
@@ -53,6 +52,18 @@ const moduleRoutes = [
   {
     path: '/solo-review',
     routes: SoloReviewRoutes,
+  },
+  {
+    path: '/blog',
+    routes: BlogRoutes,
+  },
+  {
+    path: '/faq',
+    routes: FaqRoutes,
+  },
+  {
+    path: '/add_to_cart_package',
+    routes: AddToCartPackageRoutes,
   },
 ];
 

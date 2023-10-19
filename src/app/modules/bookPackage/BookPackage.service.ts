@@ -11,16 +11,20 @@ const createBookPackage = async (
 const getAllFromDb = async (): Promise<BookedPackage[]> => {
   const result = await prisma.bookedPackage.findMany({
     include: {
-      package: true,
+      package: {
+        include: {
+          packageReviewAndRating: true,
+        },
+      },
       user: true,
     },
   });
   return result;
 };
-const getById = async (id: string): Promise<BookedPackage | null> => {
-  const result = await prisma.bookedPackage.findUnique({
+const getById = async (id: string): Promise<BookedPackage[] | null> => {
+  const result = await prisma.bookedPackage.findMany({
     where: {
-      id,
+      userId: id,
     },
     include: {
       package: true,

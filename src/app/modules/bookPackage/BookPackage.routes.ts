@@ -1,6 +1,4 @@
 import express from 'express';
-import { ENUM_USER_ROLE } from '../../../enums/user';
-import auth from '../../middleware/auth';
 import validateRequest from '../../middleware/validateRequest';
 import { BookPackageController } from './BookPackage.controller';
 import { bookedPackageValidation } from './BookPackage.validation';
@@ -21,7 +19,7 @@ router.get(
 router.post(
   '/',
   // auth(ENUM_USER_ROLE.ADMIN),
-  validateRequest(bookedPackageValidation.createBookedPackage),
+  // validateRequest(bookedPackageValidation.createBookedPackage),
   BookPackageController.createBookPackage,
 );
 
@@ -33,7 +31,7 @@ router.patch(
 );
 router.delete(
   '/:id',
-  auth(ENUM_USER_ROLE.ADMIN),
+  // auth(ENUM_USER_ROLE.ADMIN),
   BookPackageController.deleteBookPackage,
 );
 

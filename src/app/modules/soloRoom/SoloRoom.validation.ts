@@ -14,6 +14,9 @@ const createSoloRoom = z.object({
       required_error: 'Status is required',
     }),
     roomImage: z.string().optional(),
+    image_public_id: z.string({
+      required_error: 'Image public id is required',
+    }),
     roadNumber: z.string().optional(),
   }),
 });
@@ -30,6 +33,7 @@ const updateSoloRoom = z.object({
     address: z.string().optional(),
     status: z.enum(['available', 'unavailable']).optional(),
     roomImage: z.string().optional(),
+    image_public_id: z.string().optional(),
     roadNumber: z.string().optional(),
   }),
 });

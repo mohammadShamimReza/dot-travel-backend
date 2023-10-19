@@ -8,7 +8,6 @@ import { PackageReviewRatingService } from './PackageReviewRating.service';
 const createPackageReviewRating = catchAsync(
   async (req: Request, res: Response) => {
     const payload = req.body;
-
     const result =
       await PackageReviewRatingService.createPackageReviewRating(payload);
     sendResponse(res, {
