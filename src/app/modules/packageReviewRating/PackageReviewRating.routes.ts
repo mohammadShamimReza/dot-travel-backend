@@ -9,18 +9,18 @@ const router = express.Router();
 
 router.get(
   '/:id',
-  // auth(ENUM_USER_ROLE.ADMIN),
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.USER),
   PackageReviewRatingController.getById,
 );
 
 router.get(
   '/',
-  // auth(ENUM_USER_ROLE.ADMIN),
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.USER),
   PackageReviewRatingController.getAllFromDB,
 );
 router.post(
   '/',
-  // auth(ENUM_USER_ROLE.ADMIN),
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.USER),
   validateRequest(
     packageReviewAndRatingValidation.createPackageReviewAndRating,
   ),
@@ -29,7 +29,7 @@ router.post(
 
 router.patch(
   '/:id',
-  // auth(ENUM_USER_ROLE.ADMIN),
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.USER),
   validateRequest(
     packageReviewAndRatingValidation.updatePackageReviewAndRating,
   ),
@@ -37,7 +37,7 @@ router.patch(
 );
 router.delete(
   '/:id',
-  auth(ENUM_USER_ROLE.ADMIN),
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.USER),
   PackageReviewRatingController.deletePackageReviewRating,
 );
 
