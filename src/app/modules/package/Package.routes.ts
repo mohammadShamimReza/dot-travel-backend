@@ -7,17 +7,9 @@ import { PackageController } from './package.controller';
 
 const router = express.Router();
 
-router.get(
-  '/:id',
-  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.USER),
-  PackageController.getById,
-);
+router.get('/:id', PackageController.getById);
 
-router.get(
-  '/',
-  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.USER),
-  PackageController.getAllFromDB,
-);
+router.get('/', PackageController.getAllFromDB);
 router.post(
   '/',
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),

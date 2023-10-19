@@ -8,17 +8,9 @@ import { FaqValidation } from './Faq.validation';
 
 const router = express.Router();
 
-router.get(
-  '/:id',
-  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
-  FaqController.getById,
-);
+router.get('/:id', FaqController.getById);
 
-router.get(
-  '/',
-  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
-  FaqController.getAllFromDB,
-);
+router.get('/', FaqController.getAllFromDB);
 router.post(
   '/',
   auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),

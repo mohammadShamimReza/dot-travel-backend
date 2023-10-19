@@ -81,6 +81,7 @@ const getById = async (id: string): Promise<Package | null> => {
     include: {
       bookedPackage: true,
       packageReviewAndRating: true,
+      addToCartPackage: true,
     },
   });
   return result;

@@ -11,11 +11,17 @@ const globalErrorHandler_1 = __importDefault(require("./app/middleware/globalErr
 const routes_1 = __importDefault(require("./app/routes"));
 const app = (0, express_1.default)();
 const corsOptions = {
-    origin: 'http://localhost:3000',
-    credentials: true,
+    origin: 'https://dot-travel-frontend.vercel.app',
+    credentials: true, // Allow credentials
 };
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'https://dot-travel-frontend.vercel.app'); // Replace with your frontend origin.
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    next();
+});
 app.use((0, cors_1.default)(corsOptions));
-// app.use(cors());
 app.use((0, cookie_parser_1.default)());
 // Parser
 app.use(express_1.default.json());
