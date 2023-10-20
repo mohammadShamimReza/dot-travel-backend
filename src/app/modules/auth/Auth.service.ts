@@ -6,11 +6,26 @@ import ApiError from '../../../errors/ApiError';
 import { jwtHelpers } from '../../../helpers/jwtHelpers';
 import prisma from '../../../shared/prisma';
 
-const signUp = async (data: User): Promise<User> => {
+const signUp = async (data: User) => {
   const result = await prisma.user.create({
     data,
   });
-  return result;
+  const { email, role, id, password } = result;
+  const accessToken = jwtHelpers.createToken(
+    { email, role, id },
+    config.jwt.secret as Secret,
+    config.jwt.expires_in as string,
+  );
+  const refreshToken = jwtHelpers.createToken(
+    { email, password, id },
+    config.jwt.refresh_secret as Secret,
+    config.jwt.refresh_expires_in as string,
+  );
+
+  return {
+    accessToken,
+    refreshToken,
+  };
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

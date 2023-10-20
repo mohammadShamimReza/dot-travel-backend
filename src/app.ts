@@ -8,16 +8,14 @@ import routes from './app/routes';
 const app: Application = express();
 
 const corsOptions = {
-  // origin: 'https://dot-travel-frontend.vercel.app',
-  origin: 'http://localhost:3000',
-  credentials: true, // Allow credentials
+  origin: 'https://dot-travel-frontend.vercel.app',
+  credentials: true,
 };
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.header(
     'Access-Control-Allow-Origin',
-    // 'https://dot-travel-frontend.vercel.app',
-    'http://localhost:3000',
+    'https://dot-travel-frontend.vercel.app',
   );
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
