@@ -13,7 +13,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     'https://dot-travel-frontend.vercel.app',
   ); // Replace with your frontend origin.
   res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT,PATCH, DELETE');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
 });

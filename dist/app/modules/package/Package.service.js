@@ -93,6 +93,7 @@ const getById = (id) => __awaiter(void 0, void 0, void 0, function* () {
         include: {
             bookedPackage: true,
             packageReviewAndRating: true,
+            addToCartPackage: true,
         },
     });
     return result;

@@ -4,24 +4,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
-const cors_1 = __importDefault(require("cors"));
 const express_1 = __importDefault(require("express"));
 const http_status_1 = __importDefault(require("http-status"));
 const globalErrorHandler_1 = __importDefault(require("./app/middleware/globalErrorHandler"));
 const routes_1 = __importDefault(require("./app/routes"));
 const app = (0, express_1.default)();
-const corsOptions = {
-    origin: 'https://dot-travel-frontend.vercel.app',
-    credentials: true, // Allow credentials
-};
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://dot-travel-frontend.vercel.app'); // Replace with your frontend origin.
+    res.header('Access-Control-Allow-Origin', 
+    // 'http://localhost:3000',
+    'https://dot-travel-frontend.vercel.app'); // Replace with your frontend origin.
     res.header('Access-Control-Allow-Credentials', 'true');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT,PATCH, DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     next();
 });
-app.use((0, cors_1.default)(corsOptions));
+// app.use(cors({origin: "*"}))
 app.use((0, cookie_parser_1.default)());
 // Parser
 app.use(express_1.default.json());

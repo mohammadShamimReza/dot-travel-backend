@@ -22,7 +22,13 @@ const signUp = (data) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield prisma_1.default.user.create({
         data,
     });
-    return result;
+    const { email, role, id, password } = result;
+    const accessToken = jwtHelpers_1.jwtHelpers.createToken({ email, role, id }, config_1.default.jwt.secret, config_1.default.jwt.expires_in);
+    const refreshToken = jwtHelpers_1.jwtHelpers.createToken({ email, password, id }, config_1.default.jwt.refresh_secret, config_1.default.jwt.refresh_expires_in);
+    return {
+        accessToken,
+        refreshToken,
+    };
 });
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const logIn = (LoginData) => __awaiter(void 0, void 0, void 0, function* () {
