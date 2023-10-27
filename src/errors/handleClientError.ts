@@ -5,6 +5,7 @@ import { IGenericErrorMessage } from '../interfaces/error';
 const handleClientError = (
   error: Prisma.PrismaClientKnownRequestError,
 ): IGenericErrorResponse => {
+
   let errors: IGenericErrorMessage[] = [];
   let message = '';
   const statusCode = 400;
@@ -26,11 +27,21 @@ const handleClientError = (
         },
       ];
     }
+  } else if (error.code === 'P2002') {
+    message = `${(error.meta?.target as string)!} is already used`;
+    errors = [
+      {
+        path: '',
+        message,
+      },
+    ];
   }
+
+  console.log(message);
 
   return {
     statusCode,
-    message: 'Cast Error',
+    message,
     errorMessages: errors,
   };
 };

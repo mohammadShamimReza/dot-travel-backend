@@ -24,7 +24,6 @@ const createPackage = catchAsync(async (req: Request, res: Response) => {
 const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
   const filters = pick(req.query, packageFilterableFields);
   const paginationOptions = pick(req.query, packageSearchableFields);
-  console.log('hiii');
   const result = await PackageService.getAllFromDb(filters, paginationOptions);
   sendResponse(res, {
     statusCode: httpStatus.OK,
