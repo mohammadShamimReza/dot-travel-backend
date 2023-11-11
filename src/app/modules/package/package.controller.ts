@@ -16,7 +16,7 @@ const createPackage = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'User created successfully',
+    message: 'Package created successfully',
     data: result,
   });
 });
@@ -28,19 +28,20 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'User fetched successfully',
+    message: 'Package fetched successfully',
     data: result,
   });
 });
 
 const getById = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
+  console.log(id);
 
   const result = await PackageService.getById(id);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'User fetched successfully',
+    message: 'Package fetched successfully',
     data: result,
   });
 });
@@ -53,7 +54,7 @@ const updatePackage = catchAsync(async (req: Request, res: Response) => {
   sendResponse<Package>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'User update successfully',
+    message: 'Package update successfully',
     data: result,
   });
 });
@@ -64,7 +65,7 @@ const deletePackage = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'User delete successfully',
+    message: 'Package delete successfully',
     data: result,
   });
 });
