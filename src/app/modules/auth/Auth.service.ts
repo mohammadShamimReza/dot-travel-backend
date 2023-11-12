@@ -1,10 +1,13 @@
+/* eslint-disable no-unused-vars */
 import { User } from '@prisma/client';
 import httpStatus from 'http-status';
-import { Secret } from 'jsonwebtoken';
+import { JwtPayload, Secret } from 'jsonwebtoken';
 import config from '../../../config';
 import ApiError from '../../../errors/ApiError';
 import { jwtHelpers } from '../../../helpers/jwtHelpers';
 import prisma from '../../../shared/prisma';
+import { IChangePassword } from './auth.interface';
+import { sendEmail } from './sendResetMail';
 
 const signUp = async (data: User) => {
   const result = await prisma.user.create({
@@ -54,7 +57,6 @@ const logIn = async (LoginData: { email: string; password: string }) => {
     throw new ApiError(httpStatus.NOT_FOUND, 'password not matched');
   }
 
-
   const accessToken = jwtHelpers.createToken(
     { email, role, id },
     config.jwt.secret as Secret,
@@ -72,7 +74,111 @@ const logIn = async (LoginData: { email: string; password: string }) => {
   };
 };
 
+const changePassword = async (
+  user: JwtPayload | null,
+  payload: IChangePassword,
+): Promise<User> => {
+  const { oldPassword, newPassword } = payload;
+
+  const isUserExist = await prisma.user.findUnique({
+    where: {
+      id: user?.id,
+    },
+  });
+
+  if (!isUserExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User does not exist');
+  }
+  // // checking old password
+  if (isUserExist.password !== oldPassword) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Old Password is incorrect');
+  }
+
+  const result = await prisma.user.update({
+    where: {
+      id: user?.id,
+    },
+    data: {
+      password: newPassword,
+    },
+  });
+
+  return result;
+};
+
+const forgotPass = async (payload: { email: string }) => {
+  const isUserExist = await prisma.user.findFirst({
+    where: {
+      email: payload.email,
+    },
+  });
+  if (!isUserExist) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'User does not exist!');
+  }
+
+  const passResetToken = await jwtHelpers.createResetToken(
+    { id: isUserExist.id, role: isUserExist.role },
+    config.jwt.secret as string,
+    '50m',
+  );
+
+  const resetLink: string = config.resetlink + `token=${passResetToken}`;
+
+  await sendEmail(
+    isUserExist.email,
+    `
+      <div>
+        <p>Hi, ${isUserExist.firstName} ${isUserExist.lastName}</p>
+        <p>Your password reset link: <a href=${resetLink}>Click Here</a></p>
+        <p>Thank you</p>
+      </div>
+  `,
+  );
+
+  return {
+    message: 'Check your email!',
+  };
+};
+
+const resetPassword = async (
+  payload: { id: string; newPassword: string },
+  // token: string,
+) => {
+  const { newPassword } = payload;
+  const user = await prisma.user.findUnique({
+    where: {
+      id: payload?.id,
+    },
+  });
+
+  if (!user) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'User not found!');
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // const isVarified = await jwtHelpers.verifyToken(
+  //   token,
+  //   config.jwt.secret as string,
+  // );
+
+  // const password = await bcrypt.hash(newPassword, Number(config.bycrypt_salt_rounds));
+
+  const result = await prisma.user.update({
+    where: {
+      id: user?.id,
+    },
+    data: {
+      password: newPassword,
+    },
+  });
+
+  return result;
+};
+
 export const AuthService = {
   signUp,
   logIn,
+  changePassword,
+  forgotPass,
+  resetPassword,
 };
