@@ -9,7 +9,11 @@ const createPackageReviewRating = async (
 };
 
 const getAllFromDb = async (): Promise<PackageReviewAndRating[]> => {
-  const result = await prisma.packageReviewAndRating.findMany({});
+  const result = await prisma.packageReviewAndRating.findMany({
+    include: {
+      user: true,
+    },
+  });
   return result;
 };
 const getById = async (id: string): Promise<PackageReviewAndRating | null> => {
