@@ -23,7 +23,7 @@ const update = z.object({
     role: z.string().optional(),
     contactNo: z.string().optional(),
     address: z.string().optional(),
-
+    prifileImage: z.string().optional(),
   }),
 });
 

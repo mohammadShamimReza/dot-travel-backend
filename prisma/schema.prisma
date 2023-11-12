@@ -19,6 +19,7 @@ model User {
   password String
   phone String @unique
   role UserEnum
+  profileImage String
 
   address String
   reviewAndRatings PackageReviewAndRating[]
