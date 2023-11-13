@@ -15,7 +15,7 @@ router.get(
 
 router.get(
   '/',
-  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.USER),
+  // auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.USER),
   PackageReviewRatingController.getAllFromDB,
 );
 router.post(
