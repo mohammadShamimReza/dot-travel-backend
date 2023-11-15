@@ -18,6 +18,7 @@ const config_1 = __importDefault(require("../../../config"));
 const ApiError_1 = __importDefault(require("../../../errors/ApiError"));
 const jwtHelpers_1 = require("../../../helpers/jwtHelpers");
 const prisma_1 = __importDefault(require("../../../shared/prisma"));
+const sendResetMail_1 = require("./sendResetMail");
 const signUp = (data) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield prisma_1.default.user.create({
         data,
@@ -58,7 +59,82 @@ const logIn = (LoginData) => __awaiter(void 0, void 0, void 0, function* () {
         refreshToken,
     };
 });
+const changePassword = (user, payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const { oldPassword, newPassword } = payload;
+    const isUserExist = yield prisma_1.default.user.findUnique({
+        where: {
+            id: user === null || user === void 0 ? void 0 : user.id,
+        },
+    });
+    if (!isUserExist) {
+        throw new ApiError_1.default(http_status_1.default.NOT_FOUND, 'User does not exist');
+    }
+    // // checking old password
+    if (isUserExist.password !== oldPassword) {
+        throw new ApiError_1.default(http_status_1.default.UNAUTHORIZED, 'Old Password is incorrect');
+    }
+    const result = yield prisma_1.default.user.update({
+        where: {
+            id: user === null || user === void 0 ? void 0 : user.id,
+        },
+        data: {
+            password: newPassword,
+        },
+    });
+    return result;
+});
+const forgotPass = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const isUserExist = yield prisma_1.default.user.findFirst({
+        where: {
+            email: payload.email,
+        },
+    });
+    if (!isUserExist) {
+        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'User does not exist!');
+    }
+    const passResetToken = yield jwtHelpers_1.jwtHelpers.createResetToken({ id: isUserExist.id, role: isUserExist.role }, config_1.default.jwt.secret, '50m');
+    const resetLink = config_1.default.resetlink + `token=${passResetToken}`;
+    yield (0, sendResetMail_1.sendEmail)(isUserExist.email, `
+      <div>
+        <p>Hi, ${isUserExist.firstName} ${isUserExist.lastName}</p>
+        <p>Your password reset link: <a href=${resetLink}>Click Here</a></p>
+        <p>Thank you</p>
+      </div>
+  `);
+    return {
+        message: 'Check your email!',
+    };
+});
+const resetPassword = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const { newPassword } = payload;
+    const user = yield prisma_1.default.user.findUnique({
+        where: {
+            id: payload === null || payload === void 0 ? void 0 : payload.id,
+        },
+    });
+    if (!user) {
+        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, 'User not found!');
+    }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // const isVarified = await jwtHelpers.verifyToken(
+    //   token,
+    //   config.jwt.secret as string,
+    // );
+    // const password = await bcrypt.hash(newPassword, Number(config.bycrypt_salt_rounds));
+    const result = yield prisma_1.default.user.update({
+        where: {
+            id: user === null || user === void 0 ? void 0 : user.id,
+        },
+        data: {
+            password: newPassword,
+        },
+    });
+    return result;
+});
 exports.AuthService = {
     signUp,
     logIn,
+    changePassword,
+    forgotPass,
+    resetPassword,
 };

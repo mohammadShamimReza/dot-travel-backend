@@ -23,6 +23,7 @@ const update = zod_1.z.object({
         role: zod_1.z.string().optional(),
         contactNo: zod_1.z.string().optional(),
         address: zod_1.z.string().optional(),
+        prifileImage: zod_1.z.string().optional(),
     }),
 });
 exports.UserValidation = {

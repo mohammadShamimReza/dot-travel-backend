@@ -10,10 +10,19 @@ const createToken = (payload, secret, expireTime) => {
         expiresIn: expireTime,
     });
 };
+const createResetToken = (
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+payload, secret, expireTime) => {
+    return jsonwebtoken_1.default.sign(payload, secret, {
+        algorithm: 'HS256',
+        expiresIn: expireTime,
+    });
+};
 const verifyToken = (token, secret) => {
     return jsonwebtoken_1.default.verify(token, secret);
 };
 exports.jwtHelpers = {
     createToken,
     verifyToken,
+    createResetToken,
 };

@@ -18,7 +18,7 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     next();
 });
-// app.use(cors({origin: "*"}))
+// app.use(cors({ origin: '*' }));
 app.use((0, cookie_parser_1.default)());
 // Parser
 app.use(express_1.default.json());

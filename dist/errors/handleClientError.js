@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const handleClientError = (error) => {
-    var _a;
+    var _a, _b;
     let errors = [];
     let message = '';
     const statusCode = 400;
@@ -25,9 +25,19 @@ const handleClientError = (error) => {
             ];
         }
     }
+    else if (error.code === 'P2002') {
+        message = `${(_b = error.meta) === null || _b === void 0 ? void 0 : _b.target} is already used`;
+        errors = [
+            {
+                path: '',
+                message,
+            },
+        ];
+    }
+    console.log(message);
     return {
         statusCode,
-        message: 'Cast Error',
+        message,
         errorMessages: errors,
     };
 };

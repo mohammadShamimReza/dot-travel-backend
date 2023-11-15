@@ -9,8 +9,8 @@ const app: Application = express();
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.header(
     'Access-Control-Allow-Origin',
-    'http://localhost:3000',
-    // 'https://dot-travel-frontend.vercel.app',
+    // 'http://localhost:3000',
+    'https://dot-travel-frontend.vercel.app',
   ); // Replace with your frontend origin.
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT,PATCH, DELETE');

@@ -19,7 +19,11 @@ const createPackageReviewRating = (payload) => __awaiter(void 0, void 0, void 0,
     return result;
 });
 const getAllFromDb = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.packageReviewAndRating.findMany({});
+    const result = yield prisma_1.default.packageReviewAndRating.findMany({
+        include: {
+            user: true,
+        },
+    });
     return result;
 });
 const getById = (id) => __awaiter(void 0, void 0, void 0, function* () {

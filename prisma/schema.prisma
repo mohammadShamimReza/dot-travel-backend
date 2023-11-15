@@ -25,7 +25,6 @@ model User {
   reviewAndRatings PackageReviewAndRating[]
   BookedPackage BookedPackage[]
   bookedSoloRoom BookedSoloRoom[]
-  soloReviewAndRating SoloReviewAndRating[]
   addToCartPackage AddToCartPackage[]
 
   
@@ -87,7 +86,6 @@ model SoloRoom {
   roadNumber String?
   status SoloRoomEnum
   BookedSoloRoom BookedSoloRoom[]
-  soloReviewAndRating SoloReviewAndRating[]
 
 
   @@map("soloRoom")
@@ -125,18 +123,6 @@ model PackageReviewAndRating {
   @@map("packageReviewAndRating")
 }
 
-model SoloReviewAndRating {
-  id String @id @default(uuid())
-  review String
-  rating String
-  userId String
-  user User @relation(fields: [userId], references: [id])
-  soloRoomId String
-  soloRoom SoloRoom @relation(fields: [soloRoomId], references: [id])
-
-
-  @@map("soloReviewAndRating")
-}
 
 
 model Faq {
