@@ -23,6 +23,13 @@ email: user@gmail.com
 passsword: user_user
 
 
+
+## ERD 
+
+
+# dot-travel-backend![prisma-erd](https://github.com/mohammadShamimReza/dot-travel-backend/assets/98412540/577a7dbe-6c5e-43c8-bd9b-5260f1b9ab03)
+
+
 ## Models
 
 ### User    
@@ -129,10 +136,7 @@ passsword: user_user
 5. PackageReviewAndRating/:id ( DELETE )
 
 
-## ERD 
 
-
-# dot-travel-backend![prisma-erd](https://github.com/mohammadShamimReza/dot-travel-backend/assets/98412540/577a7dbe-6c5e-43c8-bd9b-5260f1b9ab03)
 
 
 
