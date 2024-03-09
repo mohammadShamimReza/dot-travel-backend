@@ -54,7 +54,7 @@ const getAllFromDb = async (
       BookedPackage: true,
       bookedSoloRoom: true,
       reviewAndRatings: true,
-      soloReviewAndRating: true,
+      // soloReviewAndRating: true,
     },
     where: whereConditions,
     skip,

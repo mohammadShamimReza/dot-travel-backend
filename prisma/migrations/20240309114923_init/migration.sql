@@ -4,9 +4,6 @@ CREATE TYPE "UserEnum" AS ENUM ('super_admin', 'admin', 'host', 'user');
 -- CreateEnum
 CREATE TYPE "SoloRoomEnum" AS ENUM ('available', 'unavailable');
 
--- CreateEnum
-CREATE TYPE "PackageStatusEnum" AS ENUM ('inprogress', 'ongoing', 'ended');
-
 -- CreateTable
 CREATE TABLE "user" (
     "id" TEXT NOT NULL,
@@ -16,18 +13,10 @@ CREATE TABLE "user" (
     "password" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
     "role" "UserEnum" NOT NULL,
+    "profileImage" TEXT NOT NULL,
     "address" TEXT NOT NULL,
-    "profileImg" TEXT,
 
     CONSTRAINT "user_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "category" (
-    "id" TEXT NOT NULL,
-    "title" TEXT NOT NULL,
-
-    CONSTRAINT "category_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -35,14 +24,12 @@ CREATE TABLE "package" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "description" TEXT NOT NULL,
-    "price" DOUBLE PRECISION NOT NULL,
-    "from" TIMESTAMP(3) NOT NULL,
-    "to" TIMESTAMP(3) NOT NULL,
-    "status" "PackageStatusEnum" NOT NULL,
-    "packageImage" TEXT,
+    "price" INTEGER NOT NULL,
+    "from" TEXT NOT NULL,
+    "to" TEXT NOT NULL,
     "maxUser" INTEGER NOT NULL,
+    "packageImage" TEXT,
     "destination" TEXT NOT NULL,
-    "packageCategoryId" TEXT NOT NULL,
 
     CONSTRAINT "package_pkey" PRIMARY KEY ("id")
 );
@@ -77,8 +64,8 @@ CREATE TABLE "soloRoom" (
 -- CreateTable
 CREATE TABLE "bookedSoloRoom" (
     "id" TEXT NOT NULL,
-    "Form" TIMESTAMP(3) NOT NULL,
-    "to" TIMESTAMP(3) NOT NULL,
+    "Form" TEXT NOT NULL,
+    "to" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "soloRoomId" TEXT NOT NULL,
 
@@ -97,14 +84,30 @@ CREATE TABLE "packageReviewAndRating" (
 );
 
 -- CreateTable
-CREATE TABLE "soloReviewAndRating" (
+CREATE TABLE "faq" (
     "id" TEXT NOT NULL,
-    "review" TEXT NOT NULL,
-    "rating" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
-    "soloRoomId" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
 
-    CONSTRAINT "soloReviewAndRating_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "faq_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "blog" (
+    "id" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
+
+    CONSTRAINT "blog_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "addToCartPackage" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "packageId" TEXT NOT NULL,
+
+    CONSTRAINT "addToCartPackage_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -112,9 +115,6 @@ CREATE UNIQUE INDEX "user_email_key" ON "user"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "user_phone_key" ON "user"("phone");
-
--- AddForeignKey
-ALTER TABLE "package" ADD CONSTRAINT "package_packageCategoryId_fkey" FOREIGN KEY ("packageCategoryId") REFERENCES "category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "bookedPackage" ADD CONSTRAINT "bookedPackage_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -135,7 +135,7 @@ ALTER TABLE "packageReviewAndRating" ADD CONSTRAINT "packageReviewAndRating_user
 ALTER TABLE "packageReviewAndRating" ADD CONSTRAINT "packageReviewAndRating_packageId_fkey" FOREIGN KEY ("packageId") REFERENCES "package"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "soloReviewAndRating" ADD CONSTRAINT "soloReviewAndRating_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "addToCartPackage" ADD CONSTRAINT "addToCartPackage_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "soloReviewAndRating" ADD CONSTRAINT "soloReviewAndRating_soloRoomId_fkey" FOREIGN KEY ("soloRoomId") REFERENCES "soloRoom"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "addToCartPackage" ADD CONSTRAINT "addToCartPackage_packageId_fkey" FOREIGN KEY ("packageId") REFERENCES "package"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
