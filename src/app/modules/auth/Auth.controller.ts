@@ -5,7 +5,6 @@ import sendResponse from '../../../shared/sendResponse';
 import { AuthService } from './Auth.service';
 
 const signUp = catchAsync(async (req: Request, res: Response) => {
-  console.log(req.body);
   const result = await AuthService.signUp(req.body);
   const { accessToken, refreshToken } = result;
   const cookieOption = {

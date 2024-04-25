@@ -8,7 +8,6 @@ import { IUserFilters } from './User.interface';
 
 const createUser = async (payload: User): Promise<User> => {
   const result = await prisma.user.create({ data: payload });
-  console.log(result, 'creating, user');
   return result;
 };
 

@@ -35,7 +35,6 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
 
 const getById = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  console.log(id);
 
   const result = await PackageService.getById(id);
   sendResponse(res, {
