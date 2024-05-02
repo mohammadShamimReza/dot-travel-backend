@@ -1,10 +1,13 @@
-import { User } from '@prisma/client';
+import { Customer } from '@prisma/client';
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
 import prisma from '../../../shared/prisma';
 
-const getProfile = async (email: string, password: string): Promise<User> => {
-  const result = await prisma.user.findFirst({
+const getProfile = async (
+  email: string,
+  password: string,
+): Promise<Customer> => {
+  const result = await prisma.customer.findFirst({
     where: {
       email,
       password,

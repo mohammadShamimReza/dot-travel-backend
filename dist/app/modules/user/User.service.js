@@ -28,7 +28,7 @@ const paginationHelper_1 = require("../../../helpers/paginationHelper");
 const prisma_1 = __importDefault(require("../../../shared/prisma"));
 const User_constants_1 = require("./User.constants");
 const createUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.user.create({ data: payload });
+    const result = yield prisma_1.default.customer.create({ data: payload });
     return result;
 });
 const getAllFromDb = (filters, paginationOptions) => __awaiter(void 0, void 0, void 0, function* () {
@@ -58,7 +58,7 @@ const getAllFromDb = (filters, paginationOptions) => __awaiter(void 0, void 0, v
         });
     }
     const whereConditions = andConditions.length > 0 ? { AND: andConditions } : {};
-    const result = yield prisma_1.default.user.findMany({
+    const result = yield prisma_1.default.customer.findMany({
         include: {
             BookedPackage: true,
             bookedSoloRoom: true,
@@ -75,7 +75,7 @@ const getAllFromDb = (filters, paginationOptions) => __awaiter(void 0, void 0, v
             },
     });
     console.log(result);
-    const total = yield prisma_1.default.user.count({
+    const total = yield prisma_1.default.customer.count({
         where: whereConditions,
     });
     return {
@@ -88,7 +88,7 @@ const getAllFromDb = (filters, paginationOptions) => __awaiter(void 0, void 0, v
     };
 });
 const getById = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.user.findUnique({
+    const result = yield prisma_1.default.customer.findUnique({
         where: {
             id,
         },
@@ -96,7 +96,7 @@ const getById = (id) => __awaiter(void 0, void 0, void 0, function* () {
     return result;
 });
 const updateUser = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.user.update({
+    const result = yield prisma_1.default.customer.update({
         where: {
             id,
         },
@@ -105,7 +105,7 @@ const updateUser = (id, payload) => __awaiter(void 0, void 0, void 0, function* 
     return result;
 });
 const deleteUser = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield prisma_1.default.user.delete({
+    const result = yield prisma_1.default.customer.delete({
         where: {
             id,
         },

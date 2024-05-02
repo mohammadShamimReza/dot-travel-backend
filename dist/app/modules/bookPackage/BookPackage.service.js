@@ -26,7 +26,7 @@ const getAllFromDb = () => __awaiter(void 0, void 0, void 0, function* () {
                     packageReviewAndRating: true,
                 },
             },
-            user: true,
+            Customer: true,
         },
     });
     return result;
@@ -34,11 +34,11 @@ const getAllFromDb = () => __awaiter(void 0, void 0, void 0, function* () {
 const getById = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield prisma_1.default.bookedPackage.findMany({
         where: {
-            userId: id,
+            CustomerId: id,
         },
         include: {
             package: true,
-            user: true,
+            Customer: true,
         },
     });
     return result;

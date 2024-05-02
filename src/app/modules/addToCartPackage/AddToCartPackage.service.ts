@@ -11,7 +11,7 @@ const createAddToCartPackage = async (
 const getAllFromDb = async (id: string): Promise<AddToCartPackage[]> => {
   const result = await prisma.addToCartPackage.findMany({
     where: {
-      userId: id,
+      CustomerId: id,
     },
     include: {
       package: true,

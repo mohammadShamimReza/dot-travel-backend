@@ -16,7 +16,7 @@ const getAllFromDb = async (): Promise<BookedPackage[]> => {
           packageReviewAndRating: true,
         },
       },
-      user: true,
+      Customer: true,
     },
   });
   return result;
@@ -24,11 +24,11 @@ const getAllFromDb = async (): Promise<BookedPackage[]> => {
 const getById = async (id: string): Promise<BookedPackage[] | null> => {
   const result = await prisma.bookedPackage.findMany({
     where: {
-      userId: id,
+      CustomerId: id,
     },
     include: {
       package: true,
-      user: true,
+      Customer: true,
     },
   });
   return result;

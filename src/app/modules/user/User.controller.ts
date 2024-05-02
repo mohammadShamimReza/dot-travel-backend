@@ -1,4 +1,4 @@
-import { User } from '@prisma/client';
+import { Customer } from '@prisma/client';
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { paginationFields } from '../../../constants/pagination';
@@ -7,7 +7,6 @@ import pick from '../../../shared/pick';
 import sendResponse from '../../../shared/sendResponse';
 import { userFilterableFields } from './User.constants';
 import { UserService } from './User.service';
-
 
 const createUser = catchAsync(async (req: Request, res: Response) => {
   const payload = req.body;
@@ -22,10 +21,10 @@ const createUser = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
-    const filters = pick(req.query, userFilterableFields);
-    const paginationOptions = pick(req.query, paginationFields);
+  const filters = pick(req.query, userFilterableFields);
+  const paginationOptions = pick(req.query, paginationFields);
 
-    const result = await UserService.getAllFromDb(filters, paginationOptions);
+  const result = await UserService.getAllFromDb(filters, paginationOptions);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -50,7 +49,7 @@ const updateUser = catchAsync(async (req: Request, res: Response) => {
   const payload = req.body;
   const result = await UserService.updateUser(id, payload);
 
-  sendResponse<User>(res, {
+  sendResponse<Customer>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'User update successfully',

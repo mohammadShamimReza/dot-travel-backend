@@ -21,7 +21,7 @@ const createAddToCartPackage = (payload) => __awaiter(void 0, void 0, void 0, fu
 const getAllFromDb = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield prisma_1.default.addToCartPackage.findMany({
         where: {
-            userId: id,
+            CustomerId: id,
         },
         include: {
             package: true,
