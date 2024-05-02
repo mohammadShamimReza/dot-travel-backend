@@ -11,7 +11,7 @@ const createPackageReviewRating = async (
 const getAllFromDb = async (): Promise<PackageReviewAndRating[]> => {
   const result = await prisma.packageReviewAndRating.findMany({
     include: {
-      user: true,
+      Customer: true,
     },
   });
   return result;

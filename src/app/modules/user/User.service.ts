@@ -1,4 +1,4 @@
-import { Prisma, User } from '@prisma/client';
+import { Customer, Prisma } from '@prisma/client';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
@@ -6,15 +6,15 @@ import prisma from '../../../shared/prisma';
 import { userSearchableFields } from './User.constants';
 import { IUserFilters } from './User.interface';
 
-const createUser = async (payload: User): Promise<User> => {
-  const result = await prisma.user.create({ data: payload });
+const createUser = async (payload: Customer): Promise<Customer> => {
+  const result = await prisma.customer.create({ data: payload });
   return result;
 };
 
 const getAllFromDb = async (
   filters: IUserFilters,
   paginationOptions: IPaginationOptions,
-): Promise<IGenericResponse<User[]>> => {
+): Promise<IGenericResponse<Customer[]>> => {
   const { limit, page, skip } =
     paginationHelpers.calculatePagination(paginationOptions);
   const { searchTerm, ...filterData } = filters;
@@ -45,10 +45,10 @@ const getAllFromDb = async (
     });
   }
 
-  const whereConditions: Prisma.UserWhereInput =
+  const whereConditions: Prisma.CustomerWhereInput =
     andConditions.length > 0 ? { AND: andConditions } : {};
 
-  const result = await prisma.user.findMany({
+  const result = await prisma.customer.findMany({
     include: {
       BookedPackage: true,
       bookedSoloRoom: true,
@@ -65,7 +65,10 @@ const getAllFromDb = async (
             email: 'desc',
           },
   });
-  const total = await prisma.user.count({
+
+  console.log(result);
+
+  const total = await prisma.customer.count({
     where: whereConditions,
   });
   return {
@@ -77,8 +80,8 @@ const getAllFromDb = async (
     data: result,
   };
 };
-const getById = async (id: string): Promise<User | null> => {
-  const result = await prisma.user.findUnique({
+const getById = async (id: string): Promise<Customer | null> => {
+  const result = await prisma.customer.findUnique({
     where: {
       id,
     },
@@ -88,9 +91,9 @@ const getById = async (id: string): Promise<User | null> => {
 
 const updateUser = async (
   id: string,
-  payload: Partial<User>,
-): Promise<User> => {
-  const result = await prisma.user.update({
+  payload: Partial<Customer>,
+): Promise<Customer> => {
+  const result = await prisma.customer.update({
     where: {
       id,
     },
@@ -99,8 +102,8 @@ const updateUser = async (
   return result;
 };
 
-const deleteUser = async (id: string): Promise<User> => {
-  const result = await prisma.user.delete({
+const deleteUser = async (id: string): Promise<Customer> => {
+  const result = await prisma.customer.delete({
     where: {
       id,
     },

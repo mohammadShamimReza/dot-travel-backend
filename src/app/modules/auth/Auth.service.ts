@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { User } from '@prisma/client';
+import { Customer } from '@prisma/client';
 import httpStatus from 'http-status';
 import { JwtPayload, Secret } from 'jsonwebtoken';
 import config from '../../../config';
@@ -9,8 +9,8 @@ import prisma from '../../../shared/prisma';
 import { IChangePassword } from './auth.interface';
 import { sendEmail } from './sendResetMail';
 
-const signUp = async (data: User) => {
-  const result = await prisma.user.create({
+const signUp = async (data: Customer) => {
+  const result = await prisma.customer.create({
     data,
   });
   const { email, role, id, password } = result;
@@ -35,7 +35,7 @@ const signUp = async (data: User) => {
 const logIn = async (LoginData: { email: string; password: string }) => {
   const { email, password } = LoginData;
 
-  const isUserExist = await prisma.user.findFirst({
+  const isUserExist = await prisma.customer.findFirst({
     where: {
       email,
     },
@@ -46,7 +46,7 @@ const logIn = async (LoginData: { email: string; password: string }) => {
   }
   const { role, id } = isUserExist;
 
-  const isUserExistWithPassword = await prisma.user.findFirst({
+  const isUserExistWithPassword = await prisma.customer.findFirst({
     where: {
       email,
       password,
@@ -77,10 +77,10 @@ const logIn = async (LoginData: { email: string; password: string }) => {
 const changePassword = async (
   user: JwtPayload | null,
   payload: IChangePassword,
-): Promise<User> => {
+): Promise<Customer> => {
   const { oldPassword, newPassword } = payload;
 
-  const isUserExist = await prisma.user.findUnique({
+  const isUserExist = await prisma.customer.findUnique({
     where: {
       id: user?.id,
     },
@@ -94,7 +94,7 @@ const changePassword = async (
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Old Password is incorrect');
   }
 
-  const result = await prisma.user.update({
+  const result = await prisma.customer.update({
     where: {
       id: user?.id,
     },
@@ -107,7 +107,7 @@ const changePassword = async (
 };
 
 const forgotPass = async (payload: { email: string }) => {
-  const isUserExist = await prisma.user.findFirst({
+  const isUserExist = await prisma.customer.findFirst({
     where: {
       email: payload.email,
     },
@@ -145,7 +145,7 @@ const resetPassword = async (
   // token: string,
 ) => {
   const { newPassword } = payload;
-  const user = await prisma.user.findUnique({
+  const user = await prisma.customer.findUnique({
     where: {
       id: payload?.id,
     },
@@ -163,7 +163,7 @@ const resetPassword = async (
 
   // const password = await bcrypt.hash(newPassword, Number(config.bycrypt_salt_rounds));
 
-  const result = await prisma.user.update({
+  const result = await prisma.customer.update({
     where: {
       id: user?.id,
     },

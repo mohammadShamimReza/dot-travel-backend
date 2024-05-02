@@ -9,7 +9,7 @@ import { FaqRoutes } from '../modules/faq/Faq.routes';
 import { packageRoutes } from '../modules/package/Package.routes';
 import { PackageReviewRoutes } from '../modules/packageReviewRating/PackageReviewRating.routes';
 import { profileRoutes } from '../modules/profile/Profile.routes';
-import { SoloReviewRoutes } from '../modules/soloReviewRating/SoloReviewRating.routes';
+
 import { SoloRoomRoutes } from '../modules/soloRoom/SoloRoom.routes';
 import { userRoutes } from '../modules/user/User.routes';
 
@@ -49,10 +49,7 @@ const moduleRoutes = [
     path: '/packages-Review',
     routes: PackageReviewRoutes,
   },
-  {
-    path: '/solo-review',
-    routes: SoloReviewRoutes,
-  },
+
   {
     path: '/blog',
     routes: BlogRoutes,

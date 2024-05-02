@@ -11,14 +11,14 @@ datasource db {
   // directUrl = env("DIRECT_URL")
 }
 
-model User {
+model Customer {
   id String @id @default(uuid())
   firstName String
   lastName String
   email String @unique
   password String
   phone String @unique
-  role UserEnum
+  role CustomerEnum
   profileImage String
 
   address String
@@ -29,10 +29,10 @@ model User {
 
   
 
-  @@map("user")
+  @@map("Customer")
 }
 
-enum UserEnum {
+enum CustomerEnum {
   super_admin
   admin
   host
@@ -48,7 +48,7 @@ model Package {
   price Int
   from String
   to String
-  maxUser Int
+  maxCustomer Int
   packageImage String?
   destination String
 
@@ -64,8 +64,8 @@ model BookedPackage {
   id String @id @default(uuid())
 
   
-  userId String
-  user User @relation(fields: [userId], references: [id])
+  CustomerId String
+  Customer Customer @relation(fields: [CustomerId], references: [id])
   packageId String
   package Package @relation(fields: [packageId], references:[id])
 
@@ -96,8 +96,8 @@ model BookedSoloRoom {
   Form String
   to String
   
-  userId String
-  user User @relation(fields: [userId], references: [id])
+  CustomerId String
+  Customer Customer @relation(fields: [CustomerId], references: [id])
   soloRoomId String
   soloRoom SoloRoom @relation(fields: [soloRoomId], references:[id])
 
@@ -114,8 +114,8 @@ model PackageReviewAndRating {
   id String @id @default(uuid())
   review String
   rating String
-  userId String
-  user User @relation(fields: [userId], references: [id])
+  CustomerId String
+  Customer Customer @relation(fields: [CustomerId], references: [id])
   packageId String
   package Package @relation(fields: [packageId], references: [id])
 
@@ -144,8 +144,8 @@ model Blog {
 
 model AddToCartPackage {
   id String @id @default(uuid())
-  userId String
-  user User @relation(fields: [userId], references: [id])
+  CustomerId String
+  Customer Customer @relation(fields: [CustomerId], references: [id])
   packageId String
   package Package @relation(fields: [packageId], references: [id])
 

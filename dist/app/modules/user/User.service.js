@@ -29,7 +29,6 @@ const prisma_1 = __importDefault(require("../../../shared/prisma"));
 const User_constants_1 = require("./User.constants");
 const createUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield prisma_1.default.user.create({ data: payload });
-    console.log(result, 'creating, user');
     return result;
 });
 const getAllFromDb = (filters, paginationOptions) => __awaiter(void 0, void 0, void 0, function* () {
@@ -64,7 +63,7 @@ const getAllFromDb = (filters, paginationOptions) => __awaiter(void 0, void 0, v
             BookedPackage: true,
             bookedSoloRoom: true,
             reviewAndRatings: true,
-            soloReviewAndRating: true,
+            // soloReviewAndRating: true,
         },
         where: whereConditions,
         skip,
@@ -75,6 +74,7 @@ const getAllFromDb = (filters, paginationOptions) => __awaiter(void 0, void 0, v
                 email: 'desc',
             },
     });
+    console.log(result);
     const total = yield prisma_1.default.user.count({
         where: whereConditions,
     });

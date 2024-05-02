@@ -29,7 +29,6 @@ const catchAsync_1 = __importDefault(require("../../../shared/catchAsync"));
 const sendResponse_1 = __importDefault(require("../../../shared/sendResponse"));
 const Auth_service_1 = require("./Auth.service");
 const signUp = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.body);
     const result = yield Auth_service_1.AuthService.signUp(req.body);
     const { accessToken, refreshToken } = result;
     const cookieOption = {

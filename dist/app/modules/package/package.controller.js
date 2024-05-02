@@ -42,7 +42,6 @@ const getAllFromDB = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, v
 }));
 const getById = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    console.log(id);
     const result = yield Package_service_1.PackageService.getById(id);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,

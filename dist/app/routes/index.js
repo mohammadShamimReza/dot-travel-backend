@@ -13,7 +13,6 @@ const Faq_routes_1 = require("../modules/faq/Faq.routes");
 const Package_routes_1 = require("../modules/package/Package.routes");
 const PackageReviewRating_routes_1 = require("../modules/packageReviewRating/PackageReviewRating.routes");
 const Profile_routes_1 = require("../modules/profile/Profile.routes");
-const SoloReviewRating_routes_1 = require("../modules/soloReviewRating/SoloReviewRating.routes");
 const SoloRoom_routes_1 = require("../modules/soloRoom/SoloRoom.routes");
 const User_routes_1 = require("../modules/user/User.routes");
 const router = express_1.default.Router();
@@ -49,10 +48,6 @@ const moduleRoutes = [
     {
         path: '/packages-Review',
         routes: PackageReviewRating_routes_1.PackageReviewRoutes,
-    },
-    {
-        path: '/solo-review',
-        routes: SoloReviewRating_routes_1.SoloReviewRoutes,
     },
     {
         path: '/blog',
