@@ -10,7 +10,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   res.header(
     'Access-Control-Allow-Origin',
     // 'http://localhost:3000',
-    'https://dot-travel-frontend.vercel.app/api/v1',
+    'https://dot-travel-frontend.vercel.app',
   ); 
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT,PATCH, DELETE');
