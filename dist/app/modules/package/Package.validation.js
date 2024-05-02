@@ -11,7 +11,7 @@ const createPackage = zod_1.z.object({
         to: zod_1.z.string({ required_error: 'to  is required' }),
         // status: z.enum(['inprogress', 'ongoing', 'ended']),
         packageImage: zod_1.z.string().optional(),
-        maxUser: zod_1.z.number({ required_error: 'maxuser  is required' }),
+        maxCustomer: zod_1.z.number({ required_error: 'maxCustomer  is required' }),
         destination: zod_1.z.string({ required_error: 'destination is required' }),
     }),
 });

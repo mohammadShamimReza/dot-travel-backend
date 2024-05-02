@@ -28,7 +28,9 @@ const paginationHelper_1 = require("../../../helpers/paginationHelper");
 const prisma_1 = __importDefault(require("../../../shared/prisma"));
 const package_constant_1 = require("./package.constant");
 const createPackage = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(payload);
     const result = yield prisma_1.default.package.create({ data: payload });
+    console.log(result);
     return result;
 });
 const getAllFromDb = (filters, paginationOptions) => __awaiter(void 0, void 0, void 0, function* () {
