@@ -10,7 +10,7 @@ const createPackage = z.object({
     // status: z.enum(['inprogress', 'ongoing', 'ended']),
     packageImage: z.string().optional(),
 
-    maxUser: z.number({ required_error: 'maxuser  is required' }),
+    maxCustomer: z.number({ required_error: 'maxCustomer  is required' }),
     destination: z.string({ required_error: 'destination is required' }),
   }),
 });

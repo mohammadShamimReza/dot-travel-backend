@@ -7,7 +7,9 @@ import { packageSearchableFields } from './package.constant';
 import { IPackageFilters } from './package.interface';
 
 const createPackage = async (payload: Package): Promise<Package> => {
+  console.log(payload);
   const result = await prisma.package.create({ data: payload });
+  console.log(result);
   return result;
 };
 
