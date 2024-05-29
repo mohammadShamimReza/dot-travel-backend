@@ -1,4 +1,5 @@
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 import express, { Application, NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 import globalErrorHandler from './app/middleware/globalErrorHandler';
@@ -6,22 +7,16 @@ import routes from './app/routes';
 
 const app: Application = express();
 
-app.use((req: Request, res: Response, next: NextFunction) => {
-  res.header(
-    'Access-Control-Allow-Origin',
-    // 'http://localhost:3000',
-    'https://dot-travel-frontend.vercel.app',
-  ); 
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT,PATCH, DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  next();
-});
-// app.use(cors({ origin: '*' }));
-
-app.use(cookieParser());
+// CORS configuration
+app.use(
+  cors({
+    origin: 'https://dot-travel-frontend.vercel.app/',
+    credentials: true,
+  }),
+);
 
 // Parser
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
